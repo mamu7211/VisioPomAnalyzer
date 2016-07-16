@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
+  <ribbon>
+    <tabs>
+      <tab idMso="TabAddIns">
+        <group id="ContentGroup" label="Content">
+          <button id="openPomButton" label="Open pom.xml"
+               screentip="Load Maven pom.xml" onAction="OnLoadPom"
+               supertip="Opens a Maven pom.xml and creates a dependency diagram."/>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>
+
