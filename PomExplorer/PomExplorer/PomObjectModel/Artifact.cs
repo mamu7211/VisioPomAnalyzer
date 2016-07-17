@@ -21,5 +21,12 @@ namespace PomExplorer
         [XmlElement("packaging")]
         public String Packaging;
 
+        public String ArtifactSummary
+        {
+            get
+            {
+                return "group: " + GroupId + "\nartifact: " + ArtifactId + "\nversion: " + Version;
+            }
+        }
     }
 }

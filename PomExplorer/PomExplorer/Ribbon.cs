@@ -1,4 +1,5 @@
 ﻿using PomExplorer.PomAccess;
+using PomExplorer.VisioDrawing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,60 +60,21 @@ namespace PomExplorer
             this.ribbon = ribbonUI;
         }
 
-        public void OnTextButton(Office.IRibbonControl control)
-        {
-            Visio.Page page = Globals.ThisAddIn.Application.ActivePage;
-
-            page.DrawRectangle(1, 1, 3, 2);
-        }
-
         public void OnLoadPom(Office.IRibbonControl control)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-
             ofd.Filter = "Maven pom.xml|pom.xml|All Files (*.*)|*.*";
-
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                var objectParser = new MavenProjectParser();
-                var sr = new StreamReader(ofd.FileName);
-                var xml = sr.ReadToEnd();
-                var project = objectParser.Parse(xml);
-
-                if (project != null)
-                {
-                    var rect = CreateRect(project.Name, 0, 0, 3, 1);
-                    var rect2 = CreateRect("ASDF", 0, 3, 3, 1);
-                    
-                    Connect(rect, rect2);
-                }
-
+                draw(ofd.FileName);
             }
         }
 
-        private Visio.Shape CreateRect(String name, double offsetX, double offsetY, double width, double height)
-        {
-            Visio.Page page = Globals.ThisAddIn.Application.ActivePage;
-
-            var cx = page.PageSheet.CellsU["PageWidth"].ResultIU / 2;
-            var cy = page.PageSheet.CellsU["PageHeight"].ResultIU / 2;
-
-            var rect = page.DrawRectangle(cx + offsetX - width/2, cy * 2 - offsetY,cx+offsetX+width/2,cy*2-offsetY- height);
-            rect.Text = name;
-            return rect;
-        }
-
-        private void Connect(Visio.Shape shape1, Visio.Shape shape2)
-        {
-            Visio.Page page = Globals.ThisAddIn.Application.ActivePage;
-            var cn = page.Application.ConnectorToolDataObject;
-            var conn = page.Drop(cn, 3, 3) as Visio.Shape;
-            var x2 = shape1.CellsSRC[1, 1, 0];  //(1,1,0); //.GlueTo(conn.Cell;
-            var x3 = conn.CellsU["BeginX"];
-            var x4 = shape2.CellsSRC[1, 1, 0];
-            var x5 = conn.CellsU["EndX"];
-            x3.GlueTo(x2);
-            x5.GlueTo(x4);
+        private static void draw(String fileName)
+        {            
+            var project = new MavenProjectParser().Parse(fileName);
+            var pomPainter = new PomPainter(Globals.ThisAddIn.Application.ActivePage,project);
+            pomPainter.Paint();
         }
 
         #endregion

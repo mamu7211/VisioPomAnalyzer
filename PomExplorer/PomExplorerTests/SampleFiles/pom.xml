@@ -1,0 +1,15 @@
+<project>
+
+  <groupId>com.example.parent</groupId>
+  <artifactId>app-artifact</artifactId>
+  <version>1.0.RELEASE</version>
+  <name>parent-pom</name>
+  <description>Parent pom.xml</description>  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <modules>
+    <module>module-a</module>
+    <module>module-b</module>
+  </modules>
+
+</project>

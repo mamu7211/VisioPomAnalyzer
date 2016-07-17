@@ -14,21 +14,31 @@ namespace PomExplorer.PomAccess
 
         private class NamespaceIgnorantXmlTextReader : XmlTextReader
         {
-            public NamespaceIgnorantXmlTextReader(System.IO.TextReader reader) : base(reader) { }
-
+            public NamespaceIgnorantXmlTextReader(System.IO.TextReader reader) : base(reader) { }        
             public override string NamespaceURI
             {
                 get { return ""; }
             }
         }
-
-        public MavenProject Parse(String xml)
+        
+        public MavenProject Parse(String fileName)
         {
             var serializer = new XmlSerializer(typeof(MavenProject));
-            var reader = new StringReader(xml);
+            var reader = new StringReader(new StreamReader(fileName).ReadToEnd());
             var o = serializer.Deserialize(new NamespaceIgnorantXmlTextReader(reader));
+            var project = o as MavenProject;
 
-            return o as MavenProject;
+            if (project != null)
+            {
+                project.BaseDirectory = Path.GetDirectoryName(fileName);
+
+                foreach(var module in project.Modules)
+                {
+                    module.Project = Parse(module.ModuleFileName);
+                }
+            }
+
+            return project;
         }
     }
 }
