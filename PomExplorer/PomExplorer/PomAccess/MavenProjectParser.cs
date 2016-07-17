@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PomExplorer.PomObjectModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,9 +33,12 @@ namespace PomExplorer.PomAccess
             {
                 project.BaseDirectory = Path.GetDirectoryName(fileName);
 
-                foreach(var module in project.Modules)
+                foreach(var moduleName in project.ModuleNames)
                 {
+                    var module = new Module(project, moduleName);
                     module.Project = Parse(module.ModuleFileName);
+                    project.Modules.Add(module);
+                    project.updateMissingAttributes(module);
                 }
             }
 

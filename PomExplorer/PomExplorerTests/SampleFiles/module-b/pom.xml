@@ -1,7 +1,7 @@
 <project>
 
   <parent>
-    <groupId>com.example.parent</groupId>
+    <groupId>com.example.app</groupId>
     <artifactId>app</artifactId>
     <version>1.0.RELEASE</version>
   </parent>
@@ -9,6 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>module-b</artifactId>
+  <groupId>com.example.app.module.b</groupId>
   <name>module b</name>
   <description>Module B Description</description>
 

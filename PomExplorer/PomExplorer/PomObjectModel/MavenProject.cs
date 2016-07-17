@@ -31,15 +31,16 @@ namespace PomExplorer
         public List<String> ModuleNames;
 
         [XmlIgnore]
-        public List<Module> Modules
-        {
-            get
-            {
-               return ModuleNames.Select(m => new Module(this,m)).ToList();
-            }
-        }
+        public List<Module> Modules = new List<Module>();
 
         public string BaseDirectory { get; set; }
+
+        internal void updateMissingAttributes(Module module)
+        {
+            var moduleProject = module.Project;
+            if (String.IsNullOrEmpty(moduleProject.GroupId)) moduleProject.GroupId = this.GroupId;
+            if (String.IsNullOrEmpty(moduleProject.Version)) moduleProject.Version = this.Version;
+        }
     }
 }
 

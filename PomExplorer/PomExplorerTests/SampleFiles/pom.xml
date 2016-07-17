@@ -1,6 +1,6 @@
 <project>
 
-  <groupId>com.example.parent</groupId>
+  <groupId>com.example.app</groupId>
   <artifactId>app-artifact</artifactId>
   <version>1.0.RELEASE</version>
   <name>parent-pom</name>

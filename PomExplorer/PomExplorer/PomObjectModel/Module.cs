@@ -12,7 +12,7 @@ namespace PomExplorer.PomObjectModel
     {
 
         private MavenProject _parent;
-        
+
         public Module(MavenProject parentProject, String modulePath)
         {
             _parent = parentProject;
@@ -25,10 +25,21 @@ namespace PomExplorer.PomObjectModel
         {
             get
             {
-                return new FileInfo(Path.Combine(new string[] { _parent.BaseDirectory, ModulePath, "pom.xml" })).FullName;                
+                return new FileInfo(Path.Combine(new string[] { _parent.BaseDirectory, ModulePath, "pom.xml" })).FullName;
             }
         }
 
-        public MavenProject Project { get; set; }
+        private MavenProject _project;
+        public MavenProject Project
+        {
+            get
+            {
+                return _project;
+            }
+            set
+            {
+                _project = value;
+            }
+        }
     }
 }

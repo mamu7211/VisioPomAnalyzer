@@ -26,7 +26,7 @@ namespace PomExplorerTests
         {
             var project = parser.Parse(_fileNameParent);
 
-            Assert.AreEqual("com.example.parent", project.GroupId);
+            Assert.AreEqual("com.example.app", project.GroupId);
             Assert.AreEqual("app-artifact", project.ArtifactId);
             Assert.AreEqual("Parent pom.xml", project.Description);
             Assert.AreEqual("parent-pom", project.Name);
@@ -57,16 +57,25 @@ namespace PomExplorerTests
             Assert.IsNotNull(projectParent.Modules[0].Project);            
         }
 
-        [TestMethod]
-        public void TestModulesHaveValidArtifact()
+        [TestMethod]  
+        public void TestModulesHaveValidArtifactProperties()
         {
             var projectParent = parser.Parse(_fileNameParent);
             var projectChildA = projectParent.Modules[0].Project;
             var projectChildB = projectParent.Modules[1].Project;
 
             Assert.AreEqual("parent-pom", projectParent.Name);
-            Assert.AreEqual("module-a", projectChildA.Name);
-            Assert.AreEqual("module-b", projectChildB.Name);
+
+            Assert.AreEqual("com.example.app", projectChildA.GroupId);
+            Assert.AreEqual("module-a", projectChildA.ArtifactId);
+            Assert.AreEqual("module a", projectChildA.Name);
+            Assert.AreEqual("Module A Description", projectChildA.Description);
+
+
+            Assert.AreEqual("com.example.app.module.b", projectChildB.GroupId);
+            Assert.AreEqual("module-b", projectChildB.ArtifactId);
+            Assert.AreEqual("module b", projectChildB.Name);
+            Assert.AreEqual("Module B Description", projectChildB.Description);
         }
 
         [TestMethod]
