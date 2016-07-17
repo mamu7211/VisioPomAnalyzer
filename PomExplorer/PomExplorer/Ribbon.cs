@@ -60,9 +60,21 @@ namespace PomExplorer
             this.ribbon = ribbonUI;
         }
 
-        public void OnLoadPom(Office.IRibbonControl control)
+        public void OnLoadPomHierarchy(Office.IRibbonControl control)
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Open Maven Parent Pom to draw Hierarchy";
+            ofd.Filter = "Maven pom.xml|pom.xml|All Files (*.*)|*.*";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                draw(ofd.FileName);
+            }
+        }
+
+        public void OnLoadPomDependency(Office.IRibbonControl control)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Open Maven Pom to draw Dependencies";
             ofd.Filter = "Maven pom.xml|pom.xml|All Files (*.*)|*.*";
             if (ofd.ShowDialog() == DialogResult.OK)
             {

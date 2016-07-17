@@ -28,5 +28,13 @@ namespace PomExplorer
                 return "group: " + GroupId + "\nartifact: " + ArtifactId + "\nversion: " + Version;
             }
         }
+
+        public String ArtifactKey
+        {
+            get
+            {
+                return GroupId + ":" + ArtifactId + ":" + Version;
+            }
+        }
     }
 }

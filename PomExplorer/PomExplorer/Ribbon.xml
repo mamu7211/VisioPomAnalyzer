@@ -3,10 +3,13 @@
   <ribbon>
     <tabs>
       <tab idMso="TabAddIns">
-        <group id="ContentGroup" label="Content">
-          <button id="openPomButton" label="Open pom.xml"
-               screentip="Load Maven pom.xml" onAction="OnLoadPom"
+        <group id="ContentGroup" label="Maven">
+          <button id="dependencyButton" label="Dependency Tree"
+               screentip="Dependency Tree" onAction="OnLoadPomDependency"
                supertip="Opens a Maven pom.xml and creates a dependency diagram."/>
+          <button id="hierarchyButton" label="Module Tree"
+               screentip="Open Maven Parent pom.xml" onAction="OnLoadPomHierarchy"
+               supertip="Opens a Maven Parent pom.xml and creates a module diagram."/>
         </group>
       </tab>
     </tabs>

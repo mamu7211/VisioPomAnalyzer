@@ -1,6 +1,7 @@
 ﻿using PomExplorer.PomObjectModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace PomExplorer.PomAccess
 {
     public class MavenProjectParser
     {
+        private Dictionary<String, MavenProject> _repository = new Dictionary<string, MavenProject>();
 
         private class NamespaceIgnorantXmlTextReader : XmlTextReader
         {
@@ -24,9 +26,11 @@ namespace PomExplorer.PomAccess
         
         public MavenProject Parse(String fileName)
         {
-            var serializer = new XmlSerializer(typeof(MavenProject));
+            var file = new FileInfo(fileName);
+            var projectSerializer = new XmlSerializer(typeof(MavenProject));            
             var reader = new StringReader(new StreamReader(fileName).ReadToEnd());
-            var o = serializer.Deserialize(new NamespaceIgnorantXmlTextReader(reader));
+            var o = projectSerializer.Deserialize(new NamespaceIgnorantXmlTextReader(reader));
+
             var project = o as MavenProject;
 
             if (project != null)
@@ -39,6 +43,16 @@ namespace PomExplorer.PomAccess
                     module.Project = Parse(module.ModuleFileName);
                     project.Modules.Add(module);
                     project.updateMissingAttributes(module);
+                }
+
+                if (!_repository.ContainsKey(project.ArtifactKey))
+                {
+                    Trace.WriteLine("ADDING: " + project.ArtifactKey);
+                    _repository.Add(project.ArtifactKey, project);                    
+                }
+                else {
+                    Trace.WriteLine("FOUND: " + project.ArtifactKey);
+                    project = _repository[project.ArtifactKey];
                 }
             }
 

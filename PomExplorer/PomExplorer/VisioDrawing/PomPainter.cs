@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Visio = Microsoft.Office.Interop.Visio;
 using VisCellIndicies = Microsoft.Office.Interop.Visio.VisCellIndices;
 using VisSectionIndices = Microsoft.Office.Interop.Visio.VisSectionIndices;
+using VisRowIndicies = Microsoft.Office.Interop.Visio.VisRowIndices;
+using VisSLO = Microsoft.Office.Interop.Visio.VisSpatialRelationCodes;
 using PomExplorer.PomAccess;
 using System.IO;
 
@@ -13,6 +15,8 @@ namespace PomExplorer.VisioDrawing
 {
     class PomPainter
     {
+
+        private Dictionary<String, Visio.Shape> _artifactsAlreadyDrawn = new Dictionary<string, Visio.Shape>();
 
         private Visio.Page _page;
         private double _rectWidth = 2.5;
@@ -30,40 +34,61 @@ namespace PomExplorer.VisioDrawing
             _centerHor = _page.PageSheet.CellsU["PageWidth"].ResultIU / 2;
             _pageTop = _page.PageSheet.CellsU["PageHeight"].ResultIU;
             _centerVert = _pageTop / 2;
-
+            _project = project;
         }
 
         public void Paint()
         {
-            var rectProject = CreateRect(_project.ArtifactSummary, 0, _rectHeight * 2);
-            drawDependencies(_project, rectProject);
+            if (_project.Shape == null)
+            {
+                _project.Shape = CreateRect(_project, 0, _rectHeight * 2);
+            }
+            DrawProject(_project);
         }
 
-        private void drawDependencies(MavenProject project, Visio.Shape rectProject)
+        public void DrawProject(MavenProject project)
         {
-            if (project.Dependencies.Count == 0) return;
+            DrawDependencies(project);
+            DrawModules(project);
+        }
 
-            var fullWidth = project.Dependencies.Count * _rectWidth + (project.Dependencies.Count - 1) * _spacing;
-            var oneWidth = fullWidth / project.Dependencies.Count;
-            var currentOffset = -(project.Dependencies.Count / 2.0);
+        private void DrawModules(MavenProject project)
+        {
+            foreach (var module in project.Modules)
+            {
+                if (module.Project.Shape == null)
+                {
+                    module.Project.Shape = CreateRect(module.Project, _centerHor, _centerVert);
+                }
 
+                Connect(project.Shape, module.Project.Shape);
+
+                DrawProject(module.Project);
+            }
+        }
+
+        private void DrawDependencies(MavenProject project)
+        {
             foreach (var dependency in project.Dependencies)
             {
-                var rectDependency = CreateRect(dependency.ArtifactSummary, _centerHor + currentOffset, _centerVert);
-                Connect(rectProject, rectDependency);
-                currentOffset += oneWidth;
-            }
-
-            foreach(var module in project.Modules)
-            {
-                var xml = new StreamReader(module.ModuleFileName).ReadToEnd();
-                var moduleProject = new MavenProjectParser().Parse(xml);
+                var rectDependency = CreateRect(dependency, _centerHor, _centerVert);
+                Connect(project.Shape, rectDependency);
             }
         }
 
-        private Visio.Shape CreateRect(String name, double offsetX, double offsetY)
+        private double getBottom(Visio.Shape shape)
         {
-            return CreateRect(name, offsetX, offsetY, _rectWidth, _rectHeight);
+            return shape.CellsU["PinY"].ResultIU+shape.CellsU["Height"].ResultIU;
+        }
+
+        private Visio.Shape CreateRect(Artifact artifact, double offsetX, double offsetY)
+        {
+            if (!_artifactsAlreadyDrawn.ContainsKey(artifact.ArtifactKey))
+            {
+                _artifactsAlreadyDrawn.Add(artifact.ArtifactKey, CreateRect(artifact.ArtifactSummary, offsetX, offsetY, _rectWidth, _rectHeight));
+            }
+
+            return _artifactsAlreadyDrawn[artifact.ArtifactKey];
         }
 
         private Visio.Shape CreateRect(String name, double offsetX, double offsetY, double width, double height)
@@ -83,6 +108,8 @@ namespace PomExplorer.VisioDrawing
             var cn = _page.Application.ConnectorToolDataObject;
             var connector = _page.Drop(cn, 3, 3) as Visio.Shape;
 
+            // https://msdn.microsoft.com/en-us/library/office/ff767991.aspx
+
             var anchorShape1 = shape1.CellsSRC[1, 1, 0];
             var beginConnector = connector.CellsU["BeginX"];
             var anchorShape2 = shape2.CellsSRC[1, 1, 0];
@@ -90,6 +117,10 @@ namespace PomExplorer.VisioDrawing
 
             beginConnector.GlueTo(anchorShape1);
             endConnector.GlueTo(anchorShape2);
+
+            connector.CellsSRC[(short)VisSectionIndices.visSectionObject, (short)VisRowIndicies.visRowLine, (short)VisCellIndicies.visLineEndArrow].FormulaU = "13";
+            connector.CellsSRC[(short)VisSectionIndices.visSectionObject, (short)VisRowIndicies.visRowShapeLayout, (short)VisCellIndicies.visLineEndArrow].FormulaU = "1";
+            connector.CellsSRC[(short)VisSectionIndices.visSectionObject, (short)VisRowIndicies.visRowShapeLayout, (short)VisCellIndicies.visSLOLineRouteExt].FormulaU = "16";
         }
     }
 }
