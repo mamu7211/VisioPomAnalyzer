@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PomExplorer.PomObjectModel
 {
-    public class Parent : Artifact
+    public class Parent : XmlArtifact
     {
     }
 }

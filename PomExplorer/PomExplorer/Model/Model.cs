@@ -1,4 +1,5 @@
-﻿using PomExplorer.PomObjectModel;
+﻿using PomExplorer.Maven;
+using PomExplorer.PomObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,29 +10,36 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace PomExplorer.PomAccess
+namespace PomExplorer.Model
 {
-    public class MavenProjectParser
+    public class Model
     {
-        private Dictionary<String, MavenProject> _repository = new Dictionary<string, MavenProject>();
+        private Dictionary<String, XmlProjectObjectModel> _repository = new Dictionary<string, XmlProjectObjectModel>();
 
-        private class NamespaceIgnorantXmlTextReader : XmlTextReader
-        {
-            public NamespaceIgnorantXmlTextReader(System.IO.TextReader reader) : base(reader) { }        
-            public override string NamespaceURI
-            {
-                get { return ""; }
+        private Module _parent;
+        private Module Module {
+            get {
+                if (_parent == null)
+                {
+                    Build();
+                }
+                return _parent;
             }
         }
-        
-        public MavenProject Parse(String fileName)
+
+
+
+        private void Build()
         {
+
+        }
+        /*
             var file = new FileInfo(fileName);
-            var projectSerializer = new XmlSerializer(typeof(MavenProject));            
+            var projectSerializer = new XmlSerializer(typeof(XmlProjectObjectModel));            
             var reader = new StringReader(new StreamReader(fileName).ReadToEnd());
             var o = projectSerializer.Deserialize(new NamespaceIgnorantXmlTextReader(reader));
 
-            var project = o as MavenProject;
+            var project = o as XmlProjectObjectModel;
 
             if (project != null)
             {
@@ -57,6 +65,6 @@ namespace PomExplorer.PomAccess
             }
 
             return project;
-        }
+        }*/
     }
 }

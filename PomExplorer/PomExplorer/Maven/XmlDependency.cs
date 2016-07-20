@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace PomExplorer.PomObjectModel
 {
     [Serializable]
-    public class Dependency : Artifact
+    public class XmlDependency : XmlArtifact
     {
         [XmlElement("scope")]
         public String Scope;

@@ -1,17 +1,10 @@
-﻿using PomExplorer.PomAccess;
-using PomExplorer.VisioDrawing;
+﻿using PomExplorer.VisioDrawing;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 using Office = Microsoft.Office.Core;
-using Visio = Microsoft.Office.Interop.Visio;
 
 // TODO:  Führen Sie diese Schritte aus, um das Element auf dem Menüband (XML) zu aktivieren:
 
@@ -84,9 +77,9 @@ namespace PomExplorer
 
         private static void draw(String fileName, PomPainterStyle style)
         {            
-            var project = new MavenProjectParser().Parse(fileName);
-            var pomPainter = new PomPainter(Globals.ThisAddIn.Application.ActivePage,project);
-            pomPainter.Paint(style);
+            //var project = new PomAccess.Model().Parse(fileName);
+            //var pomPainter = new PomPainter(Globals.ThisAddIn.Application.ActivePage,project);
+            //pomPainter.Paint(style);
         }
 
         #endregion

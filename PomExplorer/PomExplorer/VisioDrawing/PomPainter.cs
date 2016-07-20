@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Visio = Microsoft.Office.Interop.Visio;
 using VisCellIndicies = Microsoft.Office.Interop.Visio.VisCellIndices;
 using VisSectionIndices = Microsoft.Office.Interop.Visio.VisSectionIndices;
 using VisRowIndicies = Microsoft.Office.Interop.Visio.VisRowIndices;
-using VisSLO = Microsoft.Office.Interop.Visio.VisSpatialRelationCodes;
-using PomExplorer.PomAccess;
-using System.IO;
+using PomExplorer.Maven;
 
 namespace PomExplorer.VisioDrawing
 {
@@ -26,11 +21,11 @@ namespace PomExplorer.VisioDrawing
         private double _centerVert;
         private double _pageTop;
         private String _fontSize = "9pt";
-        private MavenProject _project;
+        private XmlProjectObjectModel _project;
 
         private PomPainterStyle _style;
 
-        public PomPainter(Visio.Page page, MavenProject project)
+        public PomPainter(Visio.Page page, XmlProjectObjectModel project)
         {
             _page = page;
             _centerHor = _page.PageSheet.CellsU["PageWidth"].ResultIU / 2;
@@ -50,7 +45,7 @@ namespace PomExplorer.VisioDrawing
             DrawProject(_project);
         }
 
-        public void DrawProject(MavenProject project)
+        public void DrawProject(XmlProjectObjectModel project)
         {
 
             if (_style == PomPainterStyle.PomDependencies || _style == PomPainterStyle.PomHierarchy) DrawDependencies(project);
@@ -58,22 +53,22 @@ namespace PomExplorer.VisioDrawing
             if (_style == PomPainterStyle.PomHierarchy) DrawModules(project);
         }
 
-        private void DrawModules(MavenProject project)
+        private void DrawModules(XmlProjectObjectModel project)
         {
             foreach (var module in project.Modules)
             {
-                if (module.Project.Shape == null)
-                {
-                    module.Project.Shape = CreateRect(module.Project, _centerHor, _centerVert);
-                }
+                //if (module.Project.Shape == null)
+                //{
+                //    module.Project.Shape = CreateRect(module.Project, _centerHor, _centerVert);
+                //}
 
-                Connect(project.Shape, module.Project.Shape);
+                //Connect(project.Shape, module.Project.Shape);
 
-                DrawProject(module.Project);
+                //DrawProject(module.Project);
             }
         }
 
-        private void DrawDependencies(MavenProject project)
+        private void DrawDependencies(XmlProjectObjectModel project)
         {
             foreach (var dependency in project.Dependencies)
             {
@@ -87,7 +82,7 @@ namespace PomExplorer.VisioDrawing
             return shape.CellsU["PinY"].ResultIU+shape.CellsU["Height"].ResultIU;
         }
 
-        private Visio.Shape CreateRect(Artifact artifact, double offsetX, double offsetY)
+        private Visio.Shape CreateRect(XmlArtifact artifact, double offsetX, double offsetY)
         {
             if (!_artifactsAlreadyDrawn.ContainsKey(artifact.ArtifactKey))
             {

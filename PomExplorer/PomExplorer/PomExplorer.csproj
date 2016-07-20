@@ -152,12 +152,13 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="PomAccess\MavenProjectParser.cs" />
-    <Compile Include="PomObjectModel\Artifact.cs" />
-    <Compile Include="PomObjectModel\Dependency.cs" />
-    <Compile Include="PomObjectModel\Module.cs" />
+    <Compile Include="Model\Dependency.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="Maven\XmlArtifact.cs" />
+    <Compile Include="Maven\XmlDependency.cs" />
+    <Compile Include="Model\Module.cs" />
     <Compile Include="PomObjectModel\Parent.cs" />
-    <Compile Include="PomObjectModel\MavenProject.cs" />
+    <Compile Include="Maven\XmlProjectObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -196,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Ribbon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PomAccess\NewFolder1\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

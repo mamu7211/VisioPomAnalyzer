@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace PomExplorer
 {
-    public class Artifact
+    public class XmlArtifact
     {
         [XmlElement("groupId")]
         public String GroupId;

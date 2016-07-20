@@ -3,8 +3,8 @@
   <groupId>com.example.app</groupId>
   <artifactId>app-artifact</artifactId>
   <version>1.0.RELEASE</version>
-  <name>parent-pom</name>
-  <description>Parent pom.xml</description>  
+  <name>parent-pom-name</name>
+  <description>parent-pom-description</description>  
   <modelVersion>4.0.0</modelVersion>
   
   <modules>
