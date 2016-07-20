@@ -67,7 +67,7 @@ namespace PomExplorer
             ofd.Filter = "Maven pom.xml|pom.xml|All Files (*.*)|*.*";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                draw(ofd.FileName);
+                draw(ofd.FileName,PomPainterStyle.PomHierarchy);
             }
         }
 
@@ -78,15 +78,15 @@ namespace PomExplorer
             ofd.Filter = "Maven pom.xml|pom.xml|All Files (*.*)|*.*";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                draw(ofd.FileName);
+                draw(ofd.FileName, PomPainterStyle.PomDependencies);
             }
         }
 
-        private static void draw(String fileName)
+        private static void draw(String fileName, PomPainterStyle style)
         {            
             var project = new MavenProjectParser().Parse(fileName);
             var pomPainter = new PomPainter(Globals.ThisAddIn.Application.ActivePage,project);
-            pomPainter.Paint();
+            pomPainter.Paint(style);
         }
 
         #endregion

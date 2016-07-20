@@ -28,6 +28,8 @@ namespace PomExplorer.VisioDrawing
         private String _fontSize = "9pt";
         private MavenProject _project;
 
+        private PomPainterStyle _style;
+
         public PomPainter(Visio.Page page, MavenProject project)
         {
             _page = page;
@@ -37,8 +39,10 @@ namespace PomExplorer.VisioDrawing
             _project = project;
         }
 
-        public void Paint()
+        public void Paint(PomPainterStyle style)
         {
+            _style = style;
+
             if (_project.Shape == null)
             {
                 _project.Shape = CreateRect(_project, 0, _rectHeight * 2);
@@ -48,8 +52,10 @@ namespace PomExplorer.VisioDrawing
 
         public void DrawProject(MavenProject project)
         {
-            DrawDependencies(project);
-            DrawModules(project);
+
+            if (_style == PomPainterStyle.PomDependencies) DrawDependencies(project);
+
+            if (_style == PomPainterStyle.PomHierarchy) DrawModules(project);
         }
 
         private void DrawModules(MavenProject project)

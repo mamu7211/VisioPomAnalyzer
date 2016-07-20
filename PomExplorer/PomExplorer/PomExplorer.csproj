@@ -161,6 +161,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VisioDrawing\DependencyPaintType.cs" />
     <Compile Include="VisioDrawing\PomPainter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -171,6 +172,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="PomExplorer_1_TemporaryKey.pfx" />
     <None Include="PomExplorer_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -203,10 +205,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>PomExplorer_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>PomExplorer_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>095B01A691619D484F82577D82F27C4B23FAE2B9</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>6DBB56862C5364D5D769CEE4D0840F7B9C8ADB96</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
