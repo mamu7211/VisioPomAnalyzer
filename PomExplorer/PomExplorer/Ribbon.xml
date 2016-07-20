@@ -2,13 +2,13 @@
 <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
   <ribbon>
     <tabs>
-      <tab idMso="TabAddIns">
+      <tab idMso="TabAddIns" label="Maven Tools">
         <group id="ContentGroup" label="Maven">
           <button id="dependencyButton" label="Dependency Tree"
-               screentip="Dependency Tree" onAction="OnLoadPomDependency"
-               supertip="Opens a Maven pom.xml and creates a dependency diagram."/>
+               screentip="Draws a Dependency Tree." onAction="OnLoadPomDependency"
+               supertip="Opens a Maven pom.xml and creates a dependency diagram including ."/>
           <button id="hierarchyButton" label="Module Tree"
-               screentip="Open Maven Parent pom.xml" onAction="OnLoadPomHierarchy"
+               screentip="Draws a Maven Module Tree." onAction="OnLoadPomHierarchy"
                supertip="Opens a Maven Parent pom.xml and creates a module diagram."/>
         </group>
       </tab>

@@ -53,7 +53,7 @@ namespace PomExplorer.VisioDrawing
         public void DrawProject(MavenProject project)
         {
 
-            if (_style == PomPainterStyle.PomDependencies) DrawDependencies(project);
+            if (_style == PomPainterStyle.PomDependencies || _style == PomPainterStyle.PomHierarchy) DrawDependencies(project);
 
             if (_style == PomPainterStyle.PomHierarchy) DrawModules(project);
         }
