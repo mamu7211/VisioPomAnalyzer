@@ -17,6 +17,10 @@
     <mavenVersion>2.1.MODULE</mavenVersion>
   </properties>
 
+  <modules>
+    <module>module-c</module>
+  </modules>
+
   <dependencyManagement>
     <dependency>
       <groupId>org.apache.maven</groupId>

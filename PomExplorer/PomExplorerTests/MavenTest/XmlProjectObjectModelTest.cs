@@ -74,5 +74,12 @@ namespace PomExplorerTests.ModelTest
             Assert.AreEqual("1.0.RELEASE", pom.Modules[0].Version);
         }
 
+        [TestMethod]
+        public void TestSubModulesContainSubModules()
+        {
+            Assert.IsNotNull(pom.Modules[1].Modules);
+            Assert.AreEqual(1, pom.Modules[1].Modules.Count);
+            Assert.AreEqual("module-c-name", pom.Modules[1].Modules[0].Name);
+        }
     }
 }
