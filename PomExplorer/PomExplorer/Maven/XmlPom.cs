@@ -35,6 +35,8 @@ namespace PomExplorer.Maven
         [XmlArrayItem("module")]
         public List<string> ModuleNames = new List<string>();
 
+        [XmlElement("packaging")]
+        public String Packaging;
         #endregion
 
         [XmlIgnore]

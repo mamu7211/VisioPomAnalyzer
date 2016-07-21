@@ -18,9 +18,6 @@ namespace PomExplorer.Maven
         [XmlElement("version")]
         public String Version;
 
-        [XmlElement("packaging")]
-        public String Packaging;
-
         public String ArtifactSummary
         {
             get

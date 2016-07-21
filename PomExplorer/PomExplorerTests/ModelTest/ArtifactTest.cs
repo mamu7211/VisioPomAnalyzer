@@ -20,7 +20,6 @@ namespace PomExplorerTests.ModelTest
             xmlArtifact = new XmlArtifact();
             xmlArtifact.ArtifactId = "artifact-id";
             xmlArtifact.GroupId = "group-id";
-            xmlArtifact.Packaging = "packaging";
             xmlArtifact.Version = "version";
         }
 
@@ -38,7 +37,6 @@ namespace PomExplorerTests.ModelTest
 
             Assert.AreEqual("artifact-id", artifact.Id);
             Assert.AreEqual("group-id", artifact.GroupId);
-            Assert.AreEqual("packaging", artifact.Packaging);
             Assert.AreEqual("version", artifact.Version);
         }
 
@@ -49,7 +47,6 @@ namespace PomExplorerTests.ModelTest
 
             Assert.AreEqual(Artifact.UnknownValue, artifact.Id);
             Assert.AreEqual(Artifact.UnknownValue, artifact.GroupId);
-            Assert.AreEqual(Artifact.DefaultValue, artifact.Packaging);
             Assert.AreEqual(Artifact.UnknownValue, artifact.Version);
         }
 

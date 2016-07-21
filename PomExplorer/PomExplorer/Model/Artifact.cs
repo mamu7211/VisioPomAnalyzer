@@ -17,8 +17,8 @@ namespace PomExplorer.Model
             var result = new Artifact();
             result.Version = xmlArtifact.Version ?? UnknownValue;
             result.GroupId = xmlArtifact.GroupId ?? UnknownValue;
-            result.Packaging = xmlArtifact.Packaging ?? DefaultValue;
             result.Id = xmlArtifact.ArtifactId ?? UnknownValue;
+
             return result;
         }
 
@@ -27,7 +27,6 @@ namespace PomExplorer.Model
             T artifact = new T();
 
             artifact.GroupId = this.GroupId;
-            artifact.Packaging = this.Packaging;
             artifact.Version = this.Version;
             artifact.Id = this.Id;
 
@@ -37,6 +36,5 @@ namespace PomExplorer.Model
         public string Id { get; private set; }
         public string GroupId { get; private set; }
         public string Version { get; private set; }
-        public string Packaging { get; private set; }
     }
 }

@@ -16,11 +16,13 @@ namespace PomExplorer.Model
 
             result.Name = pom.Name ?? Artifact.UnknownValue;
             result.Description = pom.Description ?? Artifact.UnknownValue;
-
+            result.Packaging = pom.Packaging;
+            
             return result;
         }
 
         public string Name { get; private set; }
         public string Description { get; private set; }
+        public string Packaging { get; private set; }
     }
 }

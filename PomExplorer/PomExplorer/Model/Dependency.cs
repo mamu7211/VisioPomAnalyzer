@@ -1,4 +1,5 @@
-﻿using PomExplorer.PomObjectModel;
+﻿using PomExplorer.Maven;
+using PomExplorer.PomObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,17 @@ using System.Threading.Tasks;
 
 namespace PomExplorer.Model
 {
-    public class Dependency
+    public class Dependency : Artifact
     {
-        public string Identifier { get; private set; }
-        public Module Module { get; private set; }
-
-        public Dependency(Module module, string identifier)
+        public static Dependency From(XmlDependency xmlDependency)
         {
-            //Module = module ?? new Module("",null,null);
-            Identifier = identifier;
+            var dependency = Artifact.From(xmlDependency).As<Dependency>();
+
+            dependency.Scope = xmlDependency.Scope ?? DefaultValue;
+
+            return dependency;
         }
+
+        public string Scope { get; private set; }
     }
 }
