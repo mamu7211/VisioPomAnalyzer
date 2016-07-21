@@ -38,11 +38,40 @@ namespace PomExplorerTests.ModelTest
         [TestMethod]
         public void TestParsingCreatesArtifact()
         {
-            Assert.AreEqual("app-artifact", pom.ArtifactId);
+            Assert.AreEqual("parent-artifactid", pom.ArtifactId);
             Assert.AreEqual("com.example.app", pom.GroupId);
-            Assert.AreEqual("parent-pom-name", pom.Name);
-            Assert.AreEqual("parent-pom-description", pom.Description);
+            Assert.AreEqual("parent-name", pom.Name);
+            Assert.AreEqual("parent-description", pom.Description);
             Assert.AreEqual("1.0.RELEASE", pom.Version);
+        }
+
+        [TestMethod]
+        public void TestSubModuleNamesDeserialized()
+        {
+            Assert.AreEqual(2, pom.ModuleNames.Count);
+        }
+
+        [TestMethod]
+        public void TestSubModulesCreated()
+        {
+            Assert.AreEqual(2, pom.Modules.Count);
+        }
+
+        [TestMethod]
+        public void TestSubModuleMissingArtifactElementsAreInferredByParent()
+        {
+            Assert.AreEqual("com.example.app", pom.Modules[0].GroupId);
+            Assert.AreEqual("1.0.RELEASE", pom.Modules[0].Version);
+        }
+
+        [TestMethod]
+        public void TestModulesContainArtifact()
+        {
+            Assert.AreEqual("module-a-artifact", pom.Modules[0].ArtifactId);
+            Assert.AreEqual("com.example.app", pom.Modules[0].GroupId);
+            Assert.AreEqual("module-a-name", pom.Modules[0].Name);
+            Assert.AreEqual("module-a-description", pom.Modules[0].Description);
+            Assert.AreEqual("1.0.RELEASE", pom.Modules[0].Version);
         }
 
     }

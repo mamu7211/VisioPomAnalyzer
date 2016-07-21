@@ -1,0 +1,23 @@
+<project>
+
+  <parent>
+    <groupId>com.example.app</groupId>
+    <artifactId>app</artifactId>
+    <version>1.0.RELEASE</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>module-c-artifactid</artifactId>
+  <name>module-c-name</name>
+  <description>module-c-description</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>${mavenVersion}</version>
+    </dependency>
+  </dependencies>
+
+</project>

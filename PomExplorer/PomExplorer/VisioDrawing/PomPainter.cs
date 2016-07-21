@@ -38,10 +38,10 @@ namespace PomExplorer.VisioDrawing
         {
             _style = style;
 
-            if (_project.Shape == null)
-            {
-                _project.Shape = CreateRect(_project, 0, _rectHeight * 2);
-            }
+            //if (_project.Shape == null)
+            //{
+            //    _project.Shape = CreateRect(_project, 0, _rectHeight * 2);
+            //}
             DrawProject(_project);
         }
 
@@ -73,7 +73,7 @@ namespace PomExplorer.VisioDrawing
             foreach (var dependency in project.Dependencies)
             {
                 var rectDependency = CreateRect(dependency, _centerHor, _centerVert);
-                Connect(project.Shape, rectDependency);
+                //Connect(project.Shape, rectDependency);
             }
         }
 

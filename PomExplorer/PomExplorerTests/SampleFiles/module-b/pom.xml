@@ -8,14 +8,22 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>module-b</artifactId>
+  <artifactId>module-b-artifactid</artifactId>
   <groupId>com.example.app.module.b</groupId>
-  <name>module b</name>
-  <description>Module B Description</description>
+  <name>module-b-name</name>
+  <description>module-b-description</description>
 
   <properties>
-    <mavenVersion>2.1</mavenVersion>
+    <mavenVersion>2.1.MODULE</mavenVersion>
   </properties>
+
+  <dependencyManagement>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>${mavenVersion}</version>
+    </dependency>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>

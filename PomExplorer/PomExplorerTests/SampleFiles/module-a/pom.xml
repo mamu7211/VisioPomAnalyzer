@@ -8,9 +8,9 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>module-a</artifactId>
-  <name>module a</name>
-  <description>Module A Description</description>
+  <artifactId>module-a-artifact</artifactId>
+  <name>module-a-name</name>
+  <description>module-a-description</description>
 
   <properties>
     <mavenVersion.plugin>1.2</mavenVersion.plugin>

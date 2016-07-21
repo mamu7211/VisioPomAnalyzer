@@ -76,6 +76,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="SampleFiles\module-a\pom.xml" />
+    <Content Include="SampleFiles\module-b\module-c\pom.xml" />
     <Content Include="SampleFiles\module-b\pom.xml" />
     <Content Include="SampleFiles\pom.xml" />
   </ItemGroup>
