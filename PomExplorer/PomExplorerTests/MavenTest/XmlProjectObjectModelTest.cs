@@ -81,5 +81,14 @@ namespace PomExplorerTests.ModelTest
             Assert.AreEqual(1, pom.Modules[1].Modules.Count);
             Assert.AreEqual("module-c-name", pom.Modules[1].Modules[0].Name);
         }
+
+        [TestMethod]
+        public void TestModulesContainDependencies()
+        {
+            Assert.AreEqual(0, pom.Dependencies.Count);
+            Assert.AreEqual(4, pom.Modules[0].Dependencies.Count);
+            Assert.AreEqual(2, pom.Modules[1].Dependencies.Count);
+            Assert.AreEqual(1, pom.Modules[1].Modules[0].Dependencies.Count);
+        }
     }
 }
