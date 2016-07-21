@@ -14,7 +14,7 @@ namespace PomExplorer.Model
 {
     public class Model
     {
-        private Dictionary<String, XmlProjectObjectModel> _repository = new Dictionary<string, XmlProjectObjectModel>();
+        private Dictionary<String, XmlPom> _repository = new Dictionary<string, XmlPom>();
 
         private Module _parent;
         private Module Module {

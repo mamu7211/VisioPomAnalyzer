@@ -13,7 +13,7 @@ using Visio = Microsoft.Office.Interop.Visio;
 namespace PomExplorer.Maven
 {
     [Serializable, XmlRoot("project")]
-    public class XmlProjectObjectModel : XmlArtifact
+    public class XmlPom : XmlArtifact
     {
 
         #region XML Serializable Attributes
@@ -40,15 +40,15 @@ namespace PomExplorer.Maven
         [XmlIgnore]
         public FileInfo FileInfo { get; private set; }
 
-        private List<XmlProjectObjectModel> _modules = new List<XmlProjectObjectModel>();
+        private List<XmlPom> _modules = new List<XmlPom>();
 
         [XmlIgnore]
-        public ReadOnlyCollection<XmlProjectObjectModel> Modules
+        public ReadOnlyCollection<XmlPom> Modules
         {
             get { return _modules.AsReadOnly(); }
         }
 
-        public static XmlProjectObjectModel from(string fileName)
+        public static XmlPom from(string fileName)
         {
             var fileInfo = new FileInfo(fileName);
             var result = parseFile(fileInfo);
@@ -61,14 +61,14 @@ namespace PomExplorer.Maven
             return result;
         }
 
-        private static XmlProjectObjectModel parseFile(FileInfo fileInfo)
+        private static XmlPom parseFile(FileInfo fileInfo)
         {
-            var projectSerializer = new XmlSerializer(typeof(XmlProjectObjectModel));
+            var projectSerializer = new XmlSerializer(typeof(XmlPom));
             var reader = new StringReader(new StreamReader(fileInfo.FullName).ReadToEnd());
-            return projectSerializer.Deserialize(new NamespaceIgnorantXmlTextReader(reader)) as XmlProjectObjectModel;
+            return projectSerializer.Deserialize(new NamespaceIgnorantXmlTextReader(reader)) as XmlPom;
         }
 
-        private static void updateNonXmlAttributes(FileInfo fileInfo, XmlProjectObjectModel result)
+        private static void updateNonXmlAttributes(FileInfo fileInfo, XmlPom result)
         {
             result.FileInfo = fileInfo;
 

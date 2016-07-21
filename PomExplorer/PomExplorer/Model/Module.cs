@@ -1,4 +1,5 @@
-﻿using PomExplorer.Model;
+﻿using PomExplorer.Maven;
+using PomExplorer.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,19 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PomExplorer.PomObjectModel
+namespace PomExplorer.Model
 {
-    public class Module
+    public class Module : Artifact
     {
-        public string Identifier { get; protected set; }
-        public List<Module> Modules { get; private set; }
-        public List<Dependency> Dependencies { get; private set; }
+        public static Module From(XmlPom pom) {
+            var result = Artifact.From(pom).As<Module>();
 
-        public Module(string identifier, List<Module> modules, List<Dependency> dependencies)
-        {
-            Identifier = identifier ?? "<no-identifier>";
-            Modules = modules ?? new List<Module>();
-            Dependencies = dependencies ?? new List<Dependency>();
+            result.Name = pom.Name ?? Artifact.UnknownValue;
+            result.Description = pom.Description ?? Artifact.UnknownValue;
+
+            return result;
         }
+
+        public string Name { get; private set; }
+        public string Description { get; private set; }
     }
 }

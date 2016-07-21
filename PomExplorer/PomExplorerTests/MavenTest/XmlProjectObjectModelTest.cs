@@ -13,12 +13,12 @@ namespace PomExplorerTests.ModelTest
         private String _fileNameModuleA = "../../SampleFiles/module-a/pom.xml";
         private String _fileNameModuleB = "../../SampleFiles/module-b/pom.xml";
 
-        XmlProjectObjectModel pom;
+        XmlPom pom;
 
         [TestInitialize]
         public void InitializeTest()
         {
-            pom = XmlProjectObjectModel.from(_fileNameParent);
+            pom = XmlPom.from(_fileNameParent);
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace PomExplorerTests.ModelTest
         [TestMethod]
         public void TestParsingSetsFileInfo()
         {
-            var pom = XmlProjectObjectModel.from(_fileNameParent);
+            var pom = XmlPom.from(_fileNameParent);
             var expected = new FileInfo(_fileNameParent);
             Assert.AreEqual(expected.FullName, pom.FileInfo.FullName);
         }

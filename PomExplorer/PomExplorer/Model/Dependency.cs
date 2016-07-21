@@ -14,7 +14,7 @@ namespace PomExplorer.Model
 
         public Dependency(Module module, string identifier)
         {
-            Module = module ?? new Module("",null,null);
+            //Module = module ?? new Module("",null,null);
             Identifier = identifier;
         }
     }

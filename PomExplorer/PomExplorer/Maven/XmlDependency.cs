@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace PomExplorer.PomObjectModel
+namespace PomExplorer.Maven
 {
     [Serializable]
     public class XmlDependency : XmlArtifact

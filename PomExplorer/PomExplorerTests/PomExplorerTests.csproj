@@ -60,6 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ModelTest\ArtifactTest.cs" />
     <Compile Include="ModelTest\ModuleTest.cs" />
     <Compile Include="MavenTest\XmlProjectObjectModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

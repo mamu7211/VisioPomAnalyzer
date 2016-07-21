@@ -152,13 +152,14 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Model\Artifact.cs" />
     <Compile Include="Model\Dependency.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Maven\XmlArtifact.cs" />
     <Compile Include="Maven\XmlDependency.cs" />
     <Compile Include="Model\Module.cs" />
     <Compile Include="PomObjectModel\Parent.cs" />
-    <Compile Include="Maven\XmlProjectObjectModel.cs" />
+    <Compile Include="Maven\XmlPom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

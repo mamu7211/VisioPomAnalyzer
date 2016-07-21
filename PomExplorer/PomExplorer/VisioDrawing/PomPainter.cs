@@ -21,11 +21,11 @@ namespace PomExplorer.VisioDrawing
         private double _centerVert;
         private double _pageTop;
         private String _fontSize = "9pt";
-        private XmlProjectObjectModel _project;
+        private XmlPom _project;
 
         private PomPainterStyle _style;
 
-        public PomPainter(Visio.Page page, XmlProjectObjectModel project)
+        public PomPainter(Visio.Page page, XmlPom project)
         {
             _page = page;
             _centerHor = _page.PageSheet.CellsU["PageWidth"].ResultIU / 2;
@@ -45,7 +45,7 @@ namespace PomExplorer.VisioDrawing
             DrawProject(_project);
         }
 
-        public void DrawProject(XmlProjectObjectModel project)
+        public void DrawProject(XmlPom project)
         {
 
             if (_style == PomPainterStyle.PomDependencies || _style == PomPainterStyle.PomHierarchy) DrawDependencies(project);
@@ -53,7 +53,7 @@ namespace PomExplorer.VisioDrawing
             if (_style == PomPainterStyle.PomHierarchy) DrawModules(project);
         }
 
-        private void DrawModules(XmlProjectObjectModel project)
+        private void DrawModules(XmlPom project)
         {
             foreach (var module in project.Modules)
             {
@@ -68,7 +68,7 @@ namespace PomExplorer.VisioDrawing
             }
         }
 
-        private void DrawDependencies(XmlProjectObjectModel project)
+        private void DrawDependencies(XmlPom project)
         {
             foreach (var dependency in project.Dependencies)
             {
