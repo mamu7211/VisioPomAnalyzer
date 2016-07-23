@@ -16,7 +16,7 @@ namespace PomExplorer.Model
 
             result.Name = pom.Name ?? Artifact.UnknownValue;
             result.Description = pom.Description ?? Artifact.UnknownValue;
-            result.Packaging = pom.Packaging;
+            result.Packaging = pom.Packaging ?? Artifact.DefaultValue;
             
             return result;
         }

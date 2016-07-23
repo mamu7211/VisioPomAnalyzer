@@ -49,7 +49,5 @@ namespace PomExplorerTests.ModelTest
             Assert.AreEqual(Artifact.UnknownValue, artifact.GroupId);
             Assert.AreEqual(Artifact.UnknownValue, artifact.Version);
         }
-
-
     }
 }
